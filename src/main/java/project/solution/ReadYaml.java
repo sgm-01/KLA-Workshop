@@ -1,20 +1,14 @@
-package project;
+package project.solution;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class WorkFlow {
-
-    String type;
-    private static final Logger LOGGER = LoggerFactory.getLogger(WorkFlow.class);
-
+public class ReadYaml {
     public void readYaml() {
 
         InputStream inputStream = null;
@@ -27,16 +21,10 @@ public class WorkFlow {
         Yaml yaml = new Yaml();
         //Customer customer = yaml.load(inputStream);
         //System.out.println(customer.toString());
-        ArrayList<Map<String,Object>> mp= new ArrayList<>();
+        Map<String, Object> mp = yaml.load(inputStream);
         //System.out.println(mp.toString());
+        new WorkFlow((LinkedHashMap<String, Object>) mp.get("M1A_Workflow"),"M1A_Workflow");
 
-        for(Object obj: yaml.loadAll(inputStream)){
-            Map<String,Object> hmp= (Map<String, Object>) obj;
-            mp.add(hmp);
-            //System.out.println(hmp.get("M1A_Workflow"));
-            //type=
-            LOGGER.info("<workflow> <function>");
-        }
-        //System.out.println(mp.get("Type").toString());
+
     }
 }

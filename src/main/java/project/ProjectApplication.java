@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import project.solution.ReadYaml;
+import project.solution.WorkFlow;
 
 @SpringBootApplication
 public class ProjectApplication {
@@ -12,7 +14,7 @@ public class ProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectApplication.class, args);
 		//System.out.println("Hello World!");
-		new WorkFlow().readYaml();
+		new ReadYaml().readYaml();
 		LOGGER.info("<task_name> <function>");
 
 	}
