@@ -1,25 +1,19 @@
 package project.solution;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
-
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class FlowType {
     String Execution;
     LinkedHashMap<String, Object> Activities;
     String path;
-
-    class ConcurrentFlowType extends Thread {
-        String s;
-        ConcurrentFlowType(String s){
-            this.s=s;
-        }
-        public void run() {
-                new WorkFlow((LinkedHashMap<String, Object>) Activities.get(s), path + "." + s);
-                //System.out.println(Thread.);
-        }
-    }
 
     FlowType(LinkedHashMap<String, Object> flow, String path) {
         //System.out.println("flowtype");
@@ -28,21 +22,29 @@ public class FlowType {
         Activities = (LinkedHashMap<String, Object>) flow.get("Activities");
 
 
+        Set<String> ks = Activities.keySet();
         if (Execution.equals("Sequential")) {
-            Set<String> ks = Activities.keySet();
             for (String s : ks) {
                 //System.out.println((LinkedHashMap<String,Object>)Activities.get(s));
                 new WorkFlow((LinkedHashMap<String, Object>) Activities.get(s), path + "." + s);
 
             }
         } else {
-            Set<String> ks = Activities.keySet();
+            ExecutorService executor = Executors.newFixedThreadPool(ks.size());
+            List<Callable<Void>> tasks = new ArrayList<>();
             for (String s : ks) {
-                //System.out.println((LinkedHashMap<String,Object>)Activities.get(s));
-                ConcurrentFlowType cft = new ConcurrentFlowType(s);
-                cft.start();
+                tasks.add(() -> {
+                    new WorkFlow((LinkedHashMap<String, Object>) Activities.get(s), path + "." + s);
+                    return null;
+                });
             }
-            
+
+            try {
+                executor.invokeAll(tasks);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            executor.shutdown();
         }
 
     }
