@@ -12,23 +12,17 @@ import java.util.Map;
 
 public class WorkFlow {
 
-    LinkedHashMap<String, Object> flow;
-    String path;
-    private static final Logger LOGGER = LoggerFactory.getLogger(WorkFlow.class);
-    WorkFlow(LinkedHashMap<String, Object> flow,String path){
-        this.path=path;
-        LOGGER.info(path+" Entry");
-     this.flow = flow;
-        //System.out.println(flow.get("Type"));
+    private LinkedHashMap<String, Object> flow;
+    private String path;
+
+    WorkFlow(LinkedHashMap<String, Object> flow, String path) {
+        this.path = path;
+        this.flow = flow;
         if (((String) flow.get("Type")).equals("Flow")) {
-            FlowType ft = new FlowType(flow,path);
-        }else{
-            TaskType tt=new TaskType(flow,path);
+            new FlowType(flow, path);
+        } else {
+            new TaskType(flow, path);
         }
-        LOGGER.info(path+" Exit");
     }
 
-        }
-        //System.out.println(mp.get("Type").toString());
-
-
+}
