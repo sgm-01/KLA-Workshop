@@ -1,5 +1,8 @@
 package project.solution;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,7 +12,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FlowType {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlowType.class);
     FlowType(LinkedHashMap<String, Object> flow, String path) {
+        LOGGER.info(path + " Entry");
         String execution = (String) flow.get("Execution");
         LinkedHashMap<String, Object> activities = (LinkedHashMap<String, Object>) flow.get("Activities");
 
@@ -35,6 +41,8 @@ public class FlowType {
             }
             executor.shutdown();
         }
+
+        LOGGER.info(path + " Exit");
 
     }
 }

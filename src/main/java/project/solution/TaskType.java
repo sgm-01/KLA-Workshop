@@ -35,11 +35,11 @@ public class TaskType {
             // LOGGER.info(path + " Waiting for " + parsed[0]);
             // LOGGER.info(path + " Print at wait " + Solution.TASK_OUTPUT);
             while (!Solution.TASK_OUTPUT.containsKey(parsed[0])) {
-                try {
+                /*try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
             }
 
             // LOGGER.info(path + " Waiting done for " + parsed[0]);
@@ -72,11 +72,11 @@ public class TaskType {
             if (functionInput.startsWith("$")) {
                 // LOGGER.info(path + " Input waiting for " + functionInput);
                 while (!Solution.TASK_OUTPUT.containsKey(functionInput)) {
-                    try {
+                    /*try {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
                 // LOGGER.info("Got value " + Solution.TASK_OUTPUT.get(functionInput));
                 inputs.put("FunctionInput", Solution.TASK_OUTPUT.get(functionInput));

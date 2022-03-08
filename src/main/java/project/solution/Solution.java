@@ -28,7 +28,7 @@ public class Solution {
     }
 
     public void solve() {
-        LOGGER.info(baseKey + " Entry");
+        //LOGGER.info(baseKey + " Entry");
         InputStream inputStream = null;
         try {
             inputStream = new FileInputStream(BASE_DIRECTORY + "\\" + fileName);
@@ -38,7 +38,7 @@ public class Solution {
         Yaml yaml = new Yaml();
         Map<String, Object> mp = yaml.load(inputStream);
         new WorkFlow((LinkedHashMap<String, Object>) mp.get(baseKey), baseKey);
-        LOGGER.info(baseKey + " Exit");
+        //LOGGER.info(baseKey + " Exit");
     }
 
     public static void addTaskOutput(String key, Object value) {
